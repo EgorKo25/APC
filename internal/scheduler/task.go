@@ -6,39 +6,29 @@ import (
 	"github.com/EgorKo25/APC/internal/apc"
 )
 
-func newTask(ap *apc.AP, i float64) *task {
-	t := &task{
-		I:      time.Duration(i) * time.Second,
-		Create: time.Now(),
-	}
-
-	t.D = ap.D
-	t.N1 = ap.N1
-
-	return t
-}
-
-type task struct {
+type Task struct {
 	apc.AP
-	I         time.Duration `json:"interval,omitempty"` // interval between iter
-	Iter      int           `json:"iter"`
-	iterCount int           // number of iter
+	I       time.Duration `json:"interval,omitempty"` // interval between iter
+	Iter    int           `json:"iteration,omitempty"`
+	IterNow int           `json:"iter_now"` // number of iter
 
-	Status string        `json:"status"`
-	TTL    time.Duration `json:"ttl"`
+	Status string        `json:"status,omitempty"`
+	TTL    time.Duration `json:"ttl,omitempty"` // times to life before finished
 
-	Create time.Time `json:"create"`
-	Start  time.Time `json:"start"`
-	Finish time.Time `json:"finish"`
+	Create time.Time `json:"create,omitempty"`
+	Start  time.Time `json:"start,omitempty"`
+	Finish time.Time `json:"finish,omitempty"`
 }
 
-func (t *task) Do() bool {
+func (t *Task) Do(c chan struct{}) {
+
 	t.Start = time.Now()
-	for i := 0; i < t.iterCount; i++ {
+	for i := 0; i < t.Iter; i++ {
 		t.Count()
-		t.Iter = i + 1
-		time.Sleep(t.I)
+		t.IterNow = i + 1
+		time.Sleep(t.I * time.Second)
 	}
+	t.Finish = time.Now()
 	t.Status = statusFinished
-	return true
+	c <- struct{}{}
 }
