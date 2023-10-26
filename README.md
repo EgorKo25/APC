@@ -32,10 +32,10 @@
     type Config struct {
         cFile      string `env:"PATH"` // config file
         ServerAddr string `env:"ADDRESS" json:"server_addr,omitempty"`
-	    QMax       int    `env:"QMAX" json:"q_max,omitempty"`
-
-	    StoragePath     string `env:"STORAGE" json:"storage_path"`
-	    StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
+        QMax   int    `env:"QMAX" json:"q_max,omitempty"`
+        
+        StoragePath     string `env:"STORAGE" json:"storage_path"`
+        StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
     }
 
 ```
