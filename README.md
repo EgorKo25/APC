@@ -9,6 +9,19 @@
 Содержит структуру ```AP``` со следующими полями:<br>
 - ```N1 - Стартовый элемент```
 - ```D  - шаг арифметической прогрессии```
+
+
+
+
+    type AP struct {
+        N1 float64 `json:"n1"` // first elem
+        D  float64 `json:"d"`  // delta
+    }
+
+    func (ap *AP) Count() {
+        ap.N1 = ap.N1 + ap.D
+    }
+
 ### ```intenal/config - package config```
 Инициализирует конфигурацию сервиса<br>
 Содержит структуру ```Config``` со следющими полями:<br>
@@ -20,6 +33,8 @@
 
 
 
+
+
     type Config struct {
         cFile      string `env:"PATH"` // config file
         ServerAddr string `env:"ADDRESS" json:"server_addr,omitempty"`
@@ -28,6 +43,8 @@
 	    StoragePath     string `env:"STORAGE" json:"storage_path"`
 	    StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
     }
+
+
 ### ```intenal/scheduler - package scheduler```
 
 ## Запуск: 
