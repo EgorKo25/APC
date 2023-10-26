@@ -9,7 +9,7 @@
 Содержит структуру ```AP``` со следующими полями:<br>
 - `N1 - Стартовый элемент`
 - `D  - шаг арифметической прогрессии`
-```
+```go
     type AP struct {
         N1 float64 `json:"n1"` // first elem
         D  float64 `json:"d"`  // delta
@@ -28,7 +28,7 @@
 - `StoragePath - путь по которому будет храниться файл с данными`
 - `StorageInterval - интервал сохранения данных на диск`
 
-```
+```go
     type Config struct {
         cFile      string `env:"PATH"` // config file
         ServerAddr string `env:"ADDRESS" json:"server_addr,omitempty"`
@@ -39,22 +39,38 @@
     }
 ```
 ### `intenal/scheduler - package scheduler`
+Описывает работу планировщика задач <br>
+Имеет следующие структуры и методы: <br>
++ `Scheduler`
+```go
+// Scheduler is a custom scheduler for managing working pool of tasks
+type Scheduler struct {
+	qMaxCount int32   // total data in queue
+	runQ      []*Task // Queue of tasks
+	qCount    int32
+
+	lock sync.Mutex
+
+	// for storaging tasks
+	storageInterval time.Duration
+	file            *os.File
+}
+```
 
 ## Запуск: 
-
-    go run APCServer.go
+```bash
+go run APCServer.go
+```
 ### или
-    go build APCServer
-    ./APCServer
+```bash
+go build APCServer
+./APCServer
+```
+    
 ## Флаги:
     APCServer - h
-### -a 
-адрес сервера (стандартое значение: "localhost:8080")
-### -file 
-пуь до файла, в который будут сохраняться данные
-### -max 
-максимальное колиество задач, которое сервис обрабытвать одновременно (стандартое значение: 6)
-### -p 
-путь до файла конфигурации 
-### -store
-интервал, с которым данные будут выгружаться на диск (стандартое значение: 30s)
++ `-a` - адрес сервера (стандартое значение: "localhost:8080")
++ `-file` - пуь до файла, в который будут сохраняться данные
++ `-max ` - максимальное колиество задач, которое сервис обрабытвать одновременно (стандартое значение: 6)
++ `-p`  - путь до файла конфигурации 
++ `-store` - интервал, с которым данные будут выгружаться на диск (стандартое значение: 30s)
