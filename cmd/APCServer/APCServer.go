@@ -17,14 +17,16 @@ func main() {
 		log.Fatalf("configuration create error: \"%s\"", err)
 	}
 
-	sched := scheduler.NewScheduler(int32(conf.QMax))
+	sched, err := scheduler.NewScheduler(int32(conf.StorageInterval), int32(conf.QMax), conf.StoragePath)
+	if err != nil {
+		log.Fatalf("scheduler create error: \"%s\"", err)
+	}
 
 	go sched.Run()
 
 	handlers := handler.NewHandler(sched)
 
 	mux := router.NewRouter(handlers)
-	if err := http.ListenAndServe(conf.ServerAddr, mux); err != nil {
-		log.Fatalf("server error: \"%s\"", err)
-	}
+
+	log.Println(http.ListenAndServe(conf.ServerAddr, mux))
 }

@@ -1,6 +1,9 @@
 package scheduler
 
 import (
+	"encoding/json"
+	"log"
+	"os"
 	"sort"
 	"sync"
 	"sync/atomic"
@@ -14,11 +17,18 @@ var (
 )
 
 // NewScheduler is a constructor for a Scheduler type
-func NewScheduler(maxTask int32) *Scheduler {
+func NewScheduler(storageInterval, maxTask int32, storeFilePath string) (*Scheduler, error) {
+
+	file, err := os.OpenFile(storeFilePath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
+	if err != nil {
+		return nil, err
+	}
 
 	return &Scheduler{
-		qMaxCount: maxTask,
-	}
+		qMaxCount:       maxTask,
+		file:            file,
+		storageInterval: time.Duration(storageInterval) * time.Second,
+	}, nil
 }
 
 // Scheduler is a custom scheduler for managing working pool of tasks
@@ -28,6 +38,10 @@ type Scheduler struct {
 	qCount    int32
 
 	lock sync.Mutex
+
+	// for storaging tasks
+	storageInterval time.Duration
+	file            *os.File
 }
 
 // InsertTask ...
@@ -47,26 +61,40 @@ func (s *Scheduler) GetSortQueue() []*Task {
 	tmp := s.runQ
 
 	sort.Slice(tmp, func(i, j int) bool {
-		if s.runQ[i].Status == statusRun {
-			return s.runQ[i].Status > s.runQ[j].Status
-		}
-		if s.runQ[j].Status == statusRun {
-			return s.runQ[i].Status < s.runQ[j].Status
-		}
-		if s.runQ[i].Status == statusFinished {
-			return s.runQ[i].Status < s.runQ[j].Status
-		}
-		if s.runQ[j].Status == statusFinished {
-			return s.runQ[i].Status > s.runQ[j].Status
-		}
-		return s.runQ[i].Status == s.runQ[j].Status
+
+		return s.runQ[i].Status < s.runQ[j].Status
 	})
 	return tmp
 }
 
+// WriteAll записывае в файл
+func (s *Scheduler) WriteAll() (err error) {
+	var data []byte
+
+	tmp := s.GetSortQueue()
+
+	if data, err = json.Marshal(tmp); err != nil {
+		return err
+	}
+
+	if err = s.file.Truncate(0); err != nil {
+		return err
+	}
+
+	if _, err = s.file.Write(data); err != nil {
+		return err
+	}
+
+	if _, err = s.file.Write([]byte("\n")); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (s *Scheduler) Run() {
 	c := make(chan struct{})
-
+	tickerSave := time.NewTicker(s.storageInterval)
 	for {
 		s.lock.Lock()
 		for i, v := range s.runQ {
@@ -84,16 +112,20 @@ func (s *Scheduler) Run() {
 				go s.runQ[i].Do(c)
 
 			}
-
 		}
 		s.lock.Unlock()
 
 		select {
+		case <-tickerSave.C:
+			if err := s.WriteAll(); err != nil {
+				log.Printf("error: \"%s\"", err)
+				return
+			}
+
 		case <-c:
 			atomic.AddInt32(&s.qCount, -1)
-			continue
 		default:
-		}
 
+		}
 	}
 }

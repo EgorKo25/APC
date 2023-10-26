@@ -18,7 +18,12 @@ func NewConfig() (*Config, error) {
 	}
 
 	flag.IntVar(&c.QMax, "max", 6, "max number of task")
+
 	flag.StringVar(&c.cFile, "p", "", "path to configuration file")
+
+	flag.IntVar(&c.StorageInterval, "store", 30, "storage interval")
+	flag.StringVar(&c.StoragePath, "file", "", "path to storage file")
+
 	flag.StringVar(&c.ServerAddr, "a", ":8080", "server address")
 
 	flag.Parse()
@@ -43,4 +48,7 @@ type Config struct {
 
 	ServerAddr string `env:"ADDRESS" json:"server_addr,omitempty"`
 	QMax       int    `env:"QMAX" json:"q_max,omitempty"`
+
+	StoragePath     string `env:"STORAGE" json:"storage_path"`
+	StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
 }
