@@ -1,32 +1,30 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
 
+	"github.com/EgorKo25/APC/internal/config"
 	"github.com/EgorKo25/APC/internal/scheduler"
 	"github.com/EgorKo25/APC/internal/server/handler"
 	"github.com/EgorKo25/APC/internal/server/router"
 )
 
-var (
-	maxTask int
-)
-
 func main() {
 
-	flag.IntVar(&maxTask, "max", 6, "")
-	flag.Parse()
+	conf, err := config.NewConfig()
+	if err != nil {
+		log.Fatalf("configuration create error: \"%s\"", err)
+	}
 
-	sched := scheduler.NewScheduler(uint(maxTask))
+	sched := scheduler.NewScheduler(int32(conf.QMax))
 
 	go sched.Run()
 
-	handlers := handler.NewHandler()
+	handlers := handler.NewHandler(sched)
 
 	mux := router.NewRouter(handlers)
-	if err := http.ListenAndServe(":8080", mux); err != nil {
-		log.Fatalf("error: %s", err)
+	if err := http.ListenAndServe(conf.ServerAddr, mux); err != nil {
+		log.Fatalf("server error: \"%s\"", err)
 	}
 }
