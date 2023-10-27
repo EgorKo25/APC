@@ -41,7 +41,8 @@
 ### `intenal/scheduler - package scheduler`
 Описывает работу планировщика задач <br>
 Имеет следующие структуры и методы: <br>
-+ `Scheduler`
+### `Scheduler` - **oтвечает за планирование задач**.
+___
 ```go
 // Scheduler is a custom scheduler for managing working pool of tasks
 type Scheduler struct {
@@ -56,6 +57,14 @@ type Scheduler struct {
 	file            *os.File
 }
 ```
+
+Вся идея сводиться к тому, что есть **глобальная очередь задач** (`runQ`), по которой идёт планировщик <br>
+и добляет задачи на выполнение при условии, что текущее количество одновремеено выполняемых задач (`qCount`) <br>
+не превышает максимально допустимого (`qMaxCount`).
+
+Также в структуре представлены поля:
++ `storageInterval time.Duration` - интервал сохранения данных на диск
++ `file            *os.File` - файл в который происходит сохранение данных
 
 ## Запуск: 
 ```bash

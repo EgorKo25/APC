@@ -44,7 +44,7 @@ type Scheduler struct {
 	file            *os.File
 }
 
-// InsertTask ...
+// InsertTask append task to queue
 func (s *Scheduler) InsertTask(t *Task) {
 
 	t.Create = time.Now()
