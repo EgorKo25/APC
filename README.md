@@ -45,7 +45,7 @@ ___
     type Config struct {
         cFile      string `env:"PATH"` // config file
         ServerAddr string `env:"ADDRESS" json:"server_addr,omitempty"`
-        QMax   int    `env:"QMAX" json:"q_max,omitempty"`
+        QMax       int    `env:"QMAX" json:"q_max,omitempty"`
       
         StoragePath     string `env:"STORAGE" json:"storage_path"`
         StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
@@ -96,7 +96,7 @@ func (s *Scheduler) WriteAll() (err error)
 ```go 
 func (s *Scheduler) Run()
 ```
-#### [`Task` - **Описывает типовую заачу**.](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/task.go "GO to code")
+#### [`Task` - **описывает типовую задачу**.](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/task.go "GO to code")
 ```go
 type Task struct {
 	apc.AP
@@ -122,7 +122,7 @@ type Task struct {
 ___
 Немного о сервере: в качестве фраемворка был выбран `chi`<br>
 Есть два обработчика 
-+ ***POST*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
++ ***POST /set/ -*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
 Принимает массив задач в формате `JSON` и добавляет их в очередь
 
 ```json
@@ -143,7 +143,7 @@ ___
   }
 ]
 ```
-+ ***GET*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") - 
++ ***GET /get/ -*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") - 
 возвращает отсортированную очередь задач в формате `JSON`
 
 ```json
