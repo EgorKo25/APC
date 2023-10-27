@@ -147,54 +147,54 @@ ___
   + ***GET /get/ -*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") - 
   возвращает отсортированную очередь задач в формате `JSON`
 
-  ```json
-    [
-      {
-        "n1": 5,
-        "d": 89,
-        "ttl": 3,
-        "interval": 1,
-        "iteration": 100,
-        "iter_now": 2,
-        "status": "Finished",
-        "create": "time",
-        "start": "time",
-        "finish": "time"
-      },
-      {
-       "n1": 1,
-       "d": 3,
-       "ttl": 30,
-       "interval": 5,
-       "iteration": 35,
-       "iter_now": 2,
-       "status": "Run",
-       "create": "time",
-       "start": "time"
-      },
-      {
-        "n1": 5,
-        "d": 89,
-        "ttl": 3,
-        "interval": 1,
-        "iteration": 100,
-        "iter_now": 2,
-        "status": "Run",
-        "create": "time",
-        "start": "time"
-      },
-      {
-        "n1": 5,
-        "d": 89,
-        "ttl": 3,
-        "interval": 1,
-        "iteration": 100,
-        "iter_now": 2,
-        "status": "Wait",
-        "create": "time"
-      }
-    ] 
-    ```
+    ```json
+      [
+        {
+          "n1": 5,
+          "d": 89,
+          "ttl": 3,
+          "interval": 1,
+          "iteration": 100,
+          "iter_now": 2,
+          "status": "Finished",
+          "create": "time",
+          "start": "time",
+          "finish": "time"
+        },
+        {
+         "n1": 1,
+         "d": 3,
+         "ttl": 30,
+         "interval": 5,
+         "iteration": 35,
+         "iter_now": 2,
+         "status": "Run",
+         "create": "time",
+         "start": "time"
+        },
+        {
+          "n1": 5,
+          "d": 89,
+          "ttl": 3,
+          "interval": 1,
+          "iteration": 100,
+          "iter_now": 2,
+          "status": "Run",
+          "create": "time",
+          "start": "time"
+        },
+        {
+          "n1": 5,
+          "d": 89,
+          "ttl": 3,
+          "interval": 1,
+          "iteration": 100,
+          "iter_now": 2,
+          "status": "Wait",
+          "create": "time"
+        }
+      ] 
+      ```
 ## Запуск
 ___
 ```bash
