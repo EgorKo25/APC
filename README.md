@@ -15,7 +15,7 @@ ___
 
 ## ![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Что+реализовано+в+проекте?)
 
-### ![`cmd/APCServer`](https://github.com/EgorKo25/APC/blob/main/cmd/APCServer/APCServer.go)`cmd/APCServer - package main`
+### [`cmd/APCServer - package main`](https://github.com/EgorKo25/APC/blob/main/cmd/APCServer/APCServer.go "GO to code")  
 Главный пакет отражающий все зависимости приложения
 ### `internal/apc - package apc`
 Описывает принцип вычисления арифметической програссии<br> 
