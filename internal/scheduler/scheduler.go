@@ -67,7 +67,7 @@ func (s *Scheduler) GetSortQueue() []*Task {
 	return tmp
 }
 
-// WriteAll записывае в файл
+// WriteAll write data to file
 func (s *Scheduler) WriteAll() (err error) {
 	var data []byte
 
