@@ -118,6 +118,60 @@ type Task struct {
 + `IterNow` - текущая итерация
 + `TTL` - время хранения результата после вычисления
 + `Status` - статус задачи `Run`/`Wait`/`Finished`
+### [`intenal/server - package server`](https://github.com/EgorKo25/APC/tree/main/internal/server/)
+___
+Немного о сервере: в качестве фраемворка был выбран `chi`<br>
+Есть два обработчика 
++ ***POST*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go) -
+Принимает массив задач в формате `JSON` и добавляет их в очередь
+
+```json
+[
+  {
+    "n1": 1,
+    "d": 3,
+    "ttl": 30,
+    "interval": 5,
+    "iteration": 35
+  },
+  {
+    "n1": 5,
+    "d": 89,
+    "ttl": 3,
+    "interval": 1,
+    "iteration": 100
+  }
+]
+```
++ ***GET*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go) - 
+возвращает отсортированную очередь задач в формате `JSON`
+
+```json
+[
+  {
+    "n1": 1,
+    "d": 3,
+    "ttl": 30,
+    "interval": 5,
+    "iteration": 35,
+    "iter_now": 2,
+    "status": "Run",
+    "create": "time",
+    "start": "time"
+  },
+  {
+    "n1": 5,
+    "d": 89,
+    "ttl": 3,
+    "interval": 1,
+    "iteration": 100,
+    "iter_now": 2,
+    "status": "Run",
+    "create": "time",
+    "start": "time"
+  }
+]
+```
 ## Запуск
 ___
 ```bash
