@@ -54,7 +54,7 @@ type Scheduler struct {
 
 	lock sync.Mutex
 
-	// for storaging tasks
+	// for storaging of tasks
 	storageInterval time.Duration
 	file            *os.File
 }
@@ -85,6 +85,28 @@ func (s *Scheduler) WriteAll() (err error)
 ```go 
 func (s *Scheduler) Run()
 ```
+#### `Task` - **Описывает типовую заачу**.
+```go
+type Task struct {
+	apc.AP
+	I       time.Duration `json:"interval,omitempty"` // interval between iter
+	Iter    int           `json:"iteration,omitempty"` // number of iter
+	IterNow int           `json:"iter_now"`
+
+	Status string        `json:"status,omitempty"`
+	TTL    time.Duration `json:"ttl,omitempty"` // times to life before finished
+
+	Create time.Time `json:"create,omitempty"`
+	Start  time.Time `json:"start,omitempty"`
+	Finish time.Time `json:"finish,omitempty"`
+}
+```
+Содержит поля:
++ `I` - интервал между итерациями
++ `Iter` - количество итераций
++ `IterNow` - текущая итерация
++ `TTL` - время хранения результата после вычисления
++ `Status` - статус задачи `Run`/`Wait`/`Finished`
 ## Запуск
 ___
 ```bash
