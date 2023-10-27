@@ -39,7 +39,7 @@ type Scheduler struct {
 
 	lock sync.Mutex
 
-	// for storaging tasks
+	// for storaging of tasks
 	storageInterval time.Duration
 	file            *os.File
 }
