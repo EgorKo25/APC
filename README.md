@@ -32,7 +32,7 @@ ___
         ap.N1 = ap.N1 + ap.D
     }
 ```
-### [`intenal/config - package config`](https://github.com/EgorKo25/APC/blob/main/internal/config/config.go)
+### [`intenal/config - package config`](https://github.com/EgorKo25/APC/tree/main/internal/config/config.go)
 Инициализирует конфигурацию сервиса<br>
 Содержит структуру `Config` со следющими полями:<br>
 - `cFile      - путь до файла конфигурации`
