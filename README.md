@@ -121,29 +121,29 @@ type Task struct {
 ### [`intenal/server - package server`](https://github.com/EgorKo25/APC/tree/main/internal/server/ "GO to code")
 ___
 **Немного о сервере**
-+ в качестве фраемворка был выбран `chi`<br>
-  + имеется два обработчика 
-    + ***POST /set/ -*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
-    Принимает массив задач в формате `JSON` и добавляет их в очередь
++ в качестве фраемворка был выбран `chi`
++ имеется два обработчика 
+  + ***POST /set/ -*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
+  Принимает массив задач в формате `JSON` и добавляет их в очередь
 
-    ```json
-    [
-       {
-         "n1": 1,
-         "d": 3,
-         "ttl": 30,
-         "interval": 5,
-         "iteration": 35
-       },
-       {
-         "n1": 5,
-         "d": 89,
-         "ttl": 3,
-         "interval": 1,
-         "iteration": 100
-        }
-     ]
-    ```
+  ```json
+  [
+     {
+       "n1": 1,
+       "d": 3,
+       "ttl": 30,
+       "interval": 5,
+       "iteration": 35
+     },
+     {
+       "n1": 5,
+       "d": 89,
+       "ttl": 3,
+       "interval": 1,
+       "iteration": 100
+      }
+   ]
+  ```
   + ***GET /get/ -*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") - 
   возвращает отсортированную очередь задач в формате `JSON`
 
