@@ -17,7 +17,7 @@ ___
 
 ### [`cmd/APCServer - package main`](https://github.com/EgorKo25/APC/blob/main/cmd/APCServer/APCServer.go "GO to code")  
 Главный пакет отражающий все зависимости приложения
-### `internal/apc - package apc`
+### [`internal/apc - package apc`](https://github.com/EgorKo25/APC/blob/main/internal/apc/apc.go)
 Описывает принцип вычисления арифметической програссии<br> 
 Содержит структуру ```AP``` со следующими полями:<br>
 - `N1 - Стартовый элемент`
@@ -32,7 +32,7 @@ ___
         ap.N1 = ap.N1 + ap.D
     }
 ```
-### `intenal/config - package config`
+### [`intenal/config - package config`](https://github.com/EgorKo25/APC/blob/main/internal/config/config.go)
 Инициализирует конфигурацию сервиса<br>
 Содержит структуру `Config` со следющими полями:<br>
 - `cFile      - путь до файла конфигурации`
@@ -51,7 +51,7 @@ ___
         StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
     }
 ```
-### `intenal/scheduler - package scheduler`
+### [`intenal/scheduler - package scheduler`](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/scheduler.go)
 Описывает работу планировщика задач <br>
 Имеет следующие структуры и методы: <br>
 #### `Scheduler` - **oтвечает за планирование задач**.
@@ -96,7 +96,7 @@ func (s *Scheduler) WriteAll() (err error)
 ```go 
 func (s *Scheduler) Run()
 ```
-#### `Task` - **Описывает типовую заачу**.
+#### [`Task` - **Описывает типовую заачу**.](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/task.go)
 ```go
 type Task struct {
 	apc.AP
