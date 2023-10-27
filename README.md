@@ -121,7 +121,7 @@ type Task struct {
 ### [`intenal/server - package server`](https://github.com/EgorKo25/APC/tree/main/internal/server/ "GO to code")
 ___
 **Немного о сервере**
-+ в качестве фраемворка был выбран `chi`
++ в качестве фраемворка был выбран [`chi`](https://github.com/go-chi/chi/blob/master/)
 + имеется два обработчика 
   + ***POST /set/ -*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
   Принимает массив задач в формате `JSON` и добавляет их в очередь
