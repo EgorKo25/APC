@@ -17,7 +17,7 @@ ___
 
 ### [`cmd/APCServer - package main`](https://github.com/EgorKo25/APC/blob/main/cmd/APCServer/APCServer.go "GO to code")  
 Главный пакет отражающий все зависимости приложения
-### [`internal/apc - package apc`](https://github.com/EgorKo25/APC/blob/main/internal/apc/apc.go)
+### [`internal/apc - package apc`](https://github.com/EgorKo25/APC/blob/main/internal/apc/apc.go "GO to code")
 Описывает принцип вычисления арифметической програссии<br> 
 Содержит структуру ```AP``` со следующими полями:<br>
 - `N1 - Стартовый элемент`
@@ -32,7 +32,7 @@ ___
         ap.N1 = ap.N1 + ap.D
     }
 ```
-### [`intenal/config - package config`](https://github.com/EgorKo25/APC/tree/main/internal/config/config.go)
+### [`intenal/config - package config`](https://github.com/EgorKo25/APC/tree/main/internal/config/config.go "GO to code")
 Инициализирует конфигурацию сервиса<br>
 Содержит структуру `Config` со следющими полями:<br>
 - `cFile      - путь до файла конфигурации`
@@ -51,7 +51,7 @@ ___
         StorageInterval int    `env:"STORE_INTERVAL" json:"storage_interval"`
     }
 ```
-### [`intenal/scheduler - package scheduler`](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/scheduler.go)
+### [`intenal/scheduler - package scheduler`](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/scheduler.go "GO to code")
 Описывает работу планировщика задач <br>
 Имеет следующие структуры и методы: <br>
 #### `Scheduler` - **oтвечает за планирование задач**.
@@ -96,7 +96,7 @@ func (s *Scheduler) WriteAll() (err error)
 ```go 
 func (s *Scheduler) Run()
 ```
-#### [`Task` - **Описывает типовую заачу**.](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/task.go)
+#### [`Task` - **Описывает типовую заачу**.](https://github.com/EgorKo25/APC/blob/main/internal/scheduler/task.go "GO to code")
 ```go
 type Task struct {
 	apc.AP
@@ -118,11 +118,11 @@ type Task struct {
 + `IterNow` - текущая итерация
 + `TTL` - время хранения результата после вычисления
 + `Status` - статус задачи `Run`/`Wait`/`Finished`
-### [`intenal/server - package server`](https://github.com/EgorKo25/APC/tree/main/internal/server/)
+### [`intenal/server - package server`](https://github.com/EgorKo25/APC/tree/main/internal/server/ "GO to code")
 ___
 Немного о сервере: в качестве фраемворка был выбран `chi`<br>
 Есть два обработчика 
-+ ***POST*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go) -
++ ***POST*** [`SetTaskToQueue`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") -
 Принимает массив задач в формате `JSON` и добавляет их в очередь
 
 ```json
@@ -143,7 +143,7 @@ ___
   }
 ]
 ```
-+ ***GET*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go) - 
++ ***GET*** [`GetTasksList`](https://github.com/EgorKo25/APC/blob/main/internal/server/handler/handler.go "GO to code") - 
 возвращает отсортированную очередь задач в формате `JSON`
 
 ```json
