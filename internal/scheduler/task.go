@@ -2,12 +2,14 @@ package scheduler
 
 import (
 	"time"
-
-	"github.com/EgorKo25/APC/internal/apc"
 )
 
+type AP interface {
+	Count()
+}
+
 type Task struct {
-	apc.AP
+	AP
 	I       time.Duration `json:"interval,omitempty"` // interval between iter
 	Iter    int           `json:"iteration,omitempty"`
 	IterNow int           `json:"iter_now"` // number of iter

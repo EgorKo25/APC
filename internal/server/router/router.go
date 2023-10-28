@@ -1,12 +1,19 @@
 package router
 
 import (
-	"github.com/EgorKo25/APC/internal/server/handler"
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func NewRouter(handlers *handler.Handler) chi.Router {
+type Handlers interface {
+	MainPage(w http.ResponseWriter, _ *http.Request)
+	GetTasksList(w http.ResponseWriter, _ *http.Request)
+	SetTaskToQueue(w http.ResponseWriter, r *http.Request)
+}
+
+func NewRouter(handlers Handlers) chi.Router {
 
 	mux := chi.NewRouter()
 
