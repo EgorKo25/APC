@@ -9,18 +9,18 @@ import (
 	"github.com/EgorKo25/APC/internal/scheduler"
 )
 
-type TaskManager interface {
+type taskManager interface {
 	InsertTask(task *scheduler.Task)
 	GetSortQueue() []*scheduler.Task
 }
 
 // NewHandler constructor Handler
-func NewHandler(s TaskManager) *Handler {
+func NewHandler(s taskManager) *Handler {
 	return &Handler{s: s}
 }
 
 type Handler struct {
-	s TaskManager
+	s taskManager
 }
 
 // MainPage return / page
