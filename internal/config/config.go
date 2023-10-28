@@ -22,7 +22,7 @@ func NewConfig() (*Config, error) {
 	flag.StringVar(&c.cFile, "p", "", "path to configuration file")
 
 	flag.IntVar(&c.StorageInterval, "store", 30, "storage interval")
-	flag.StringVar(&c.StoragePath, "file", "", "path to storage file")
+	flag.StringVar(&c.StoragePath, "file", "backup.storage", "path to storage file")
 
 	flag.StringVar(&c.ServerAddr, "a", ":8080", "server address")
 
